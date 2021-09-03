@@ -1,0 +1,84 @@
+################################################################################
+#Copyrights(c)2010 Y.W.
+#
+#DESCRIPTION: global macros defination for build
+#
+#HISTORY:
+#  Name                 Date                Reason
+#  Huzd                 03/30/2010          Initial Version
+#
+#This software is the property of Y.W., legally protected as the trade
+#secret, proprietary information, and copyrighted work of Y.W.. It may
+#not be used, duplicated, disclosed to others outside Y.W., modified,
+#or translated, etc., except as specifically permitted by the software
+#license term of an agreement with Y.W..
+################################################################################
+
+export PPC_TOOL_CHAIN=/opt/eldk/usr/bin
+
+export ACE_ROOT=/home/Tao/ACE_wrappers
+export TAO_ROOT=$(ACE_ROOT)/TAO
+
+
+CP           = /bin/cp
+RM           =  rm -f
+
+ifeq ("$(SP_GNU)","PPCgnu")
+  
+  ifeq ("$(NODETYPE)","OAM")
+		TARGET_DIR = /target/wss_ppc/OAM
+	else
+		TARGET_DIR = /target/wss_ppc/ITCE
+	endif
+
+  CC           =  $(PPC_TOOL_CHAIN)/ppc_85xx-gcc
+  CXX          =  $(PPC_TOOL_CHAIN)/ppc_85xx-g++
+  AR           =  $(PPC_TOOL_CHAIN)/ppc_85xx-ar
+  AS           =  $(PPC_TOOL_CHAIN)/ppc_85xx-as
+  LD           =  $(PPC_TOOL_CHAIN)/ppc_85xx-ld
+  RANLIB       =  $(PPC_TOOL_CHAIN)/ppc_85xx-ranlib
+
+else
+  
+  ifeq ("$(SP_GNU)","X86gnu")
+    
+    ifeq ("$(NODETYPE)","OAM")
+			TARGET_DIR = /target/wss_x86/OAM
+		else
+			TARGET_DIR = /target/wss_x86/ITCE
+		endif
+		
+    CC           =  /usr/bin/gcc
+    CXX          =  /usr/bin/g++
+    AR           =  /usr/bin/ar
+    AS           =  /usr/bin/as
+    LD           =  /usr/bin/ld
+    RANLIB       =  /usr/bin/ranlib
+
+  else
+  
+    #set to default x86
+    ifeq ("$(NODETYPE)","OAM")
+			TARGET_DIR = /target/wss_x86/OAM
+		else
+			TARGET_DIR = /target/wss_x86/ITCE
+		endif
+		
+    CC           =  /usr/bin/gcc
+    CXX          =  /usr/bin/g++
+    AR           =  /usr/bin/ar
+    AS           =  /usr/bin/as
+    LD           =  /usr/bin/ld
+    RANLIB       =  /usr/bin/ranlib
+     
+  endif
+
+endif
+
+
+YACC            = /usr/bin/byacc
+LEX             = /usr/bin/flex
+YACC_SOL        = /usr/bin/yacc
+LEX_SOL         = /usr/bin/lex
+
+export $(TARGET_DIR)
